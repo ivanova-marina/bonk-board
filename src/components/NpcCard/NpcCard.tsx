@@ -3,6 +3,11 @@ import { useState } from 'react';
 export function NpcCard() {
   const [npcName, setNpcName] = useState('');
   const [npcHp, setNpcHp] = useState('');
+  const [submittedNpc, setSubmittedNpc] = useState({ name: '', hp: '' });
+
+  const handleCreate = () => {
+    setSubmittedNpc({ name: npcName, hp: npcHp });
+  };
   return (
     <>
       <label>
@@ -21,10 +26,11 @@ export function NpcCard() {
           onChange={(e) => setNpcHp(e.target.value)}
         />
       </label>
+      <button onClick={() => handleCreate()}>Create</button>
       <div>
-        <p>Name: {npcName}</p>
-        <p>MAX hp: {npcHp}</p>
-        <p>current hp: {npcHp}</p>
+        <p>Name: {submittedNpc.name}</p>
+        <p>MAX hp: {submittedNpc.hp}</p>
+        <p>current hp: {submittedNpc.hp}</p>
       </div>
     </>
   );
