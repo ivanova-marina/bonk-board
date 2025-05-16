@@ -1,13 +1,27 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
 export function NpcCard() {
   const [npcName, setNpcName] = useState('');
   const [npcHp, setNpcHp] = useState('');
-  const [submittedNpc, setSubmittedNpc] = useState({ name: '', hp: '' });
+
+  const getSavedNpc = () => {
+    const savedNpc = localStorage.getItem('npcData');
+    return savedNpc ? JSON.parse(savedNpc) : { name: '', hp: '' };
+  };
+  const [submittedNpc, setSubmittedNpc] = useState(getSavedNpc());
 
   const handleCreate = () => {
-    setSubmittedNpc({ name: npcName, hp: npcHp });
+    const newNpc = { name: npcName, hp: npcHp };
+    setSubmittedNpc(newNpc);
+    localStorage.setItem('npcData', JSON.stringify(newNpc));
   };
+
+  useEffect(() => {
+    const savedNpc = localStorage.getItem('npcData');
+    if (savedNpc) {
+      setSubmittedNpc(JSON.parse(savedNpc));
+    }
+  }, [submittedNpc]);
   return (
     <>
       <label>
