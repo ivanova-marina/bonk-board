@@ -1,19 +1,16 @@
 import { useEffect, useState } from 'react';
+import { getSavedNpc } from '../../utils/npcData';
+import { storeSavedNpc } from '../../utils/npcData';
 
 export function NpcCard() {
   const [npcName, setNpcName] = useState('');
   const [npcHp, setNpcHp] = useState('');
-
-  const getSavedNpc = () => {
-    const savedNpc = localStorage.getItem('npcData');
-    return savedNpc ? JSON.parse(savedNpc) : { name: '', hp: '' };
-  };
   const [submittedNpc, setSubmittedNpc] = useState(getSavedNpc());
 
   const handleCreate = () => {
     const newNpc = { name: npcName, hp: npcHp };
     setSubmittedNpc(newNpc);
-    localStorage.setItem('npcData', JSON.stringify(newNpc));
+    storeSavedNpc(npcName, npcHp);
   };
 
   useEffect(() => {
