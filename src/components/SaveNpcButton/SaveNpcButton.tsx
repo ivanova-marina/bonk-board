@@ -3,5 +3,9 @@ interface SaveNpcButtonProps {
 }
 
 export function SaveNpcButton({ handleSave }: SaveNpcButtonProps) {
-  return <button onClick={handleSave}>Save</button>;
+  return (
+    <button role='button' onClick={handleSave}>
+      Save
+    </button>
+  );
 }
