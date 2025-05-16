@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import { getSavedNpc } from '../../utils/npcData';
 import { storeSavedNpc } from '../../utils/npcData';
+import { SaveNpcButton } from '../SaveNpcButton';
 
 export function NpcCard() {
   const [npcName, setNpcName] = useState('');
@@ -37,7 +38,7 @@ export function NpcCard() {
           onChange={(e) => setNpcHp(e.target.value)}
         />
       </label>
-      <button onClick={() => handleCreate()}>Create</button>
+      <SaveNpcButton handleSave={handleCreate} />
       <div>
         <p>Name: {submittedNpc.name}</p>
         <p>MAX hp: {submittedNpc.hp}</p>

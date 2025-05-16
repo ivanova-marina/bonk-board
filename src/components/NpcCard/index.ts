@@ -1,0 +1,1 @@
+export { NpcCard } from './NpcCard'

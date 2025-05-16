@@ -1,4 +1,4 @@
-import { NpcCard } from './components/NpcCard/NpcCard';
+import { NpcCard } from './components/NpcCard';
 import './index.css';
 
 function App() {
