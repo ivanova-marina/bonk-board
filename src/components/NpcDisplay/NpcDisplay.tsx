@@ -9,6 +9,7 @@ export function NpcDisplay({ name, maxHp, currentHp }: NpcDisplayProps) {
     <div className='flex flex-col gap-2'>
       <p>Name: {name}</p>
       <p>Max Hp: {maxHp}</p>
+      {/** TODO: Handle current hp*/}
       <p>Current Hp: {currentHp}</p>
     </div>
   );
