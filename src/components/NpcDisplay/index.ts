@@ -1,0 +1,1 @@
+export { NpcDisplay } from './NpcDisplay'

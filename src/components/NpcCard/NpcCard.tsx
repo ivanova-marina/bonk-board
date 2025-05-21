@@ -2,6 +2,8 @@ import { useEffect, useState } from 'react';
 import { getSavedNpc } from '../../utils/npcData';
 import { storeSavedNpc } from '../../utils/npcData';
 import { SaveNpcButton } from '../SaveNpcButton';
+import { NpcForm } from '../NpcForm';
+import { NpcDisplay } from '../NpcDisplay';
 
 export function NpcCard() {
   const [npcName, setNpcName] = useState('');
@@ -21,29 +23,21 @@ export function NpcCard() {
     }
   }, [submittedNpc]);
   return (
-    <>
-      <label>
-        NPC name:
-        <input
-          name='npc-name'
-          value={npcName}
-          onChange={(e) => setNpcName(e.target.value)}
-        />
-      </label>
-      <label>
-        NPC hp:
-        <input
-          name='npc-hp'
-          value={npcHp}
-          onChange={(e) => setNpcHp(e.target.value)}
-        />
-      </label>
-      <SaveNpcButton handleSave={handleCreate} />
+    <div className='flex flex-col gap-4'>
+      <NpcForm
+        npcName={npcName}
+        npcHp={npcHp}
+        onNameChange={(e) => setNpcName(e.target.value)}
+        onHpChange={(e) => setNpcHp(e.target.value)}
+      />
       <div>
-        <p>Name: {submittedNpc.name}</p>
-        <p>MAX hp: {submittedNpc.hp}</p>
-        <p>current hp: {submittedNpc.hp}</p>
+        <SaveNpcButton handleSave={handleCreate} />
       </div>
-    </>
+      <NpcDisplay
+        name={submittedNpc.name}
+        maxHp={submittedNpc.hp}
+        currentHp={submittedNpc.hp}
+      />
+    </div>
   );
 }
