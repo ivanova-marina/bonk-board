@@ -1,27 +1,12 @@
-import { useEffect, useState } from 'react';
-import { getSavedNpc } from '../../utils/npcData';
-import { storeSavedNpc } from '../../utils/npcData';
 import { SaveNpcButton } from '../SaveNpcButton';
 import { NpcForm } from '../NpcForm';
 import { NpcDisplay } from '../NpcDisplay';
+import { useNpcStats } from '../../hooks/useNpcStats';
 
 export function NpcCard() {
-  const [npcName, setNpcName] = useState('');
-  const [npcHp, setNpcHp] = useState('');
-  const [submittedNpc, setSubmittedNpc] = useState(getSavedNpc());
+  const { handleCreate, setNpcName, setNpcHp, submittedNpc, npcHp, npcName } =
+    useNpcStats();
 
-  const handleCreate = () => {
-    const newNpc = { name: npcName, hp: npcHp };
-    setSubmittedNpc(newNpc);
-    storeSavedNpc(npcName, npcHp);
-  };
-
-  useEffect(() => {
-    const savedNpc = localStorage.getItem('npcData');
-    if (savedNpc) {
-      setSubmittedNpc(JSON.parse(savedNpc));
-    }
-  }, [submittedNpc]);
   return (
     <div className='flex flex-col gap-4'>
       <NpcForm
