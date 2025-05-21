@@ -14,9 +14,9 @@ export function useNpcStats() {
   }
 
   useEffect(() => {
-    const savedNpc = localStorage.getItem('npcData');
+    const savedNpc = getSavedNpc();
     if (savedNpc) {
-      setSubmittedNpc(JSON.parse(savedNpc))
+      setSubmittedNpc(savedNpc)
     }
   }, [])
 
