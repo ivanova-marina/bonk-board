@@ -1,7 +1,10 @@
 /** Save NPC's data to local storage */
 export function storeSavedNpc(name: string, hp: string) {
   const npcData = { name: name, hp: hp }
-  const serializedData = JSON.stringify(npcData);
+  const savedNpc = localStorage.getItem('npcData')
+  const savedNpcArray = savedNpc ? JSON.parse(savedNpc) : []
+  savedNpcArray.push(npcData)
+  const serializedData = JSON.stringify(savedNpcArray);
   localStorage.setItem('npcData', serializedData);
   return serializedData
 }
