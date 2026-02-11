@@ -23,6 +23,7 @@ describe('useNpcStats', () => {
     mockLocalStorage.getItem.mockClear();
     mockLocalStorage.setItem.mockClear();
   });
+
   it('initializes with default values', () => {
     const { result } = renderHook(() => useNpcStats());
 
@@ -50,40 +51,47 @@ describe('useNpcStats', () => {
       result.current.setNpcName('Orc');
       result.current.setNpcHp('50');
     });
+
     act(() => { result.current.handleCreate(); })
 
-    expect(result.current.npcList).toEqual({ name: 'Orc', hp: '50' });
+    expect(result.current.npcList).toEqual([{ name: 'Orc', hp: '50' }]);
     expect(localStorage.setItem).toHaveBeenCalledWith(
       'npcData',
       JSON.stringify([{ name: 'Orc', hp: '50' }])
     );
   });
 
-  it('appens multiple NPCs', () => {
+  it('appends multiple NPCs', () => {
     const { result } = renderHook(() => useNpcStats());
 
     act(() => {
       result.current.setNpcName('Orc');
       result.current.setNpcHp('50');
+    });
+
+    act(() => {
       result.current.handleCreate();
     });
 
     act(() => {
       result.current.setNpcName('Goblin');
       result.current.setNpcHp('30');
+    });
+
+    act(() => {
       result.current.handleCreate();
     });
 
     expect(result.current.npcList).toEqual([
       { name: 'Orc', hp: '50' },
-      { name: 'Goblin', hp: '30' }
+      { name: 'Goblin', hp: '30' },
     ]);
     expect(localStorage.setItem).toHaveBeenLastCalledWith(
       'npcData',
       JSON.stringify([
         { name: 'Orc', hp: '50' },
-        { name: 'Goblin', hp: '30' }
-      ])
+        { name: 'Goblin', hp: '30' },
+      ]),
     );
-  })
+  });
 });

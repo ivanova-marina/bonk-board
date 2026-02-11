@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { getSavedNpc, storeSavedNpc } from '../utils/npcData'
 
+import type { NpcData } from '../utils/npcData';
 /**
  * Custom React hook for managing NPC stats.
  *
@@ -18,7 +19,7 @@ import { getSavedNpc, storeSavedNpc } from '../utils/npcData'
 export function useNpcStats() {
   const [npcName, setNpcName] = useState('');
   const [npcHp, setNpcHp] = useState('');
-  const [npcList, setNpcList] = useState(getSavedNpc());
+  const [npcList, setNpcList] = useState<NpcData[]>(getSavedNpc());
 
   const handleCreate = () => {
     storeSavedNpc([{ name: npcName, hp: npcHp }]);
