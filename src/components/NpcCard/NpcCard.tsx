@@ -17,7 +17,7 @@ export function NpcCard() {
       <div>
         <SaveNpcButton handleSave={handleCreate} />
       </div>
-      <NpcDisplay name={npcName} maxHp={npcHp} currentHp={npcHp} />
+      <NpcDisplay />
     </div>
   );
 }

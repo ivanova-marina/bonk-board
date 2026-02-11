@@ -1,16 +1,19 @@
-interface NpcDisplayProps {
-  name: string;
-  maxHp: string;
-  currentHp: string;
-}
+import { useNpcStats } from '../../hooks/useNpcStats';
 
-export function NpcDisplay({ name, maxHp, currentHp }: NpcDisplayProps) {
+export function NpcDisplay() {
+  const { npcList } = useNpcStats();
+
   return (
-    <div className='flex flex-col gap-2'>
-      <p>Name: {name}</p>
-      <p>Max Hp: {maxHp}</p>
-      {/** TODO: Handle current hp*/}
-      <p>Current Hp: {currentHp}</p>
-    </div>
+    <>
+      {npcList.map((npc: { name: string; hp: string }, index: number) => (
+        <ul>
+          <li key={index}>
+            <p>Name: {npc.name}</p>
+            <p>Max Hp: {npc.hp}</p>
+            <p>Current Hp: {npc.hp}</p>
+          </li>
+        </ul>
+      ))}
+    </>
   );
 }
