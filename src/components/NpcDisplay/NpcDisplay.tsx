@@ -1,8 +1,6 @@
-import { useNpcStats } from '../../hooks/useNpcStats';
+import type { NpcData } from '../../utils/npcData';
 
-export function NpcDisplay() {
-  const { npcList } = useNpcStats();
-
+export function NpcDisplay({ npcList }: { npcList: NpcData[] }) {
   return (
     <>
       <ul>
