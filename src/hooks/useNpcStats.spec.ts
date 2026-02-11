@@ -1,5 +1,5 @@
 import { renderHook, act } from '@testing-library/react';
-import { describe, it, expect, vi } from 'vitest';
+import { describe, it, expect, vi, beforeEach } from 'vitest';
 import { useNpcStats } from './useNpcStats';
 
 // Mock localStorage
@@ -18,12 +18,18 @@ const mockLocalStorage = (() => {
 Object.defineProperty(global, 'localStorage', { value: mockLocalStorage });
 
 describe('useNpcStats', () => {
+  beforeEach(() => {
+    mockLocalStorage.clear();
+    mockLocalStorage.getItem.mockClear();
+    mockLocalStorage.setItem.mockClear();
+  });
+
   it('initializes with default values', () => {
     const { result } = renderHook(() => useNpcStats());
 
     expect(result.current.npcName).toBe('');
     expect(result.current.npcHp).toBe('');
-    expect(result.current.submittedNpc).toEqual({ name: '', hp: '' });
+    expect(result.current.npcList).toEqual([]);
   });
 
   it('updates npcName and npcHp correctly', () => {
@@ -48,10 +54,44 @@ describe('useNpcStats', () => {
 
     act(() => { result.current.handleCreate(); })
 
-    expect(result.current.submittedNpc).toEqual({ name: 'Orc', hp: '50' });
+    expect(result.current.npcList).toEqual([{ name: 'Orc', hp: '50' }]);
     expect(localStorage.setItem).toHaveBeenCalledWith(
       'npcData',
-      JSON.stringify({ name: 'Orc', hp: '50' })
+      JSON.stringify([{ name: 'Orc', hp: '50' }])
+    );
+  });
+
+  it('appends multiple NPCs', () => {
+    const { result } = renderHook(() => useNpcStats());
+
+    act(() => {
+      result.current.setNpcName('Orc');
+      result.current.setNpcHp('50');
+    });
+
+    act(() => {
+      result.current.handleCreate();
+    });
+
+    act(() => {
+      result.current.setNpcName('Goblin');
+      result.current.setNpcHp('30');
+    });
+
+    act(() => {
+      result.current.handleCreate();
+    });
+
+    expect(result.current.npcList).toEqual([
+      { name: 'Orc', hp: '50' },
+      { name: 'Goblin', hp: '30' },
+    ]);
+    expect(localStorage.setItem).toHaveBeenLastCalledWith(
+      'npcData',
+      JSON.stringify([
+        { name: 'Orc', hp: '50' },
+        { name: 'Goblin', hp: '30' },
+      ]),
     );
   });
 });

@@ -1,13 +1,27 @@
-/** Save NPC's data to local storage */
-export function storeSavedNpc(name: string, hp: string) {
-  const npcData = { name: name, hp: hp }
-  const serializedData = JSON.stringify(npcData);
-  localStorage.setItem('npcData', serializedData);
-  return serializedData
+export interface NpcData {
+  name: string;
+  hp: string;
 }
 
-/** Get NPC's data from local storage */
-export function getSavedNpc() {
+/** Get NPC list from local storage */
+export function getSavedNpc(): NpcData[] {
   const savedNpc = localStorage.getItem('npcData');
-  return savedNpc ? JSON.parse(savedNpc) : { name: '', hp: '' }
+  if (!savedNpc) return [];
+
+  try {
+    const parsed = JSON.parse(savedNpc);
+    return Array.isArray(parsed) ? parsed : [];
+  } catch {
+    return [];
+  }
+}
+
+/** Save NPC list to local storage (appends) */
+export function storeSavedNpc(npcData: NpcData[]) {
+  const savedNpcArray = getSavedNpc();
+  savedNpcArray.push(...npcData);
+
+  const serializedData = JSON.stringify(savedNpcArray);
+  localStorage.setItem('npcData', serializedData);
+  return serializedData;
 }

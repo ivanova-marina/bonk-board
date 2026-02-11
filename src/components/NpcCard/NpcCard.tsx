@@ -4,7 +4,7 @@ import { NpcDisplay } from '../NpcDisplay';
 import { useNpcStats } from '../../hooks/useNpcStats';
 
 export function NpcCard() {
-  const { handleCreate, setNpcName, setNpcHp, submittedNpc, npcHp, npcName } =
+  const { handleCreate, setNpcName, setNpcHp, npcHp, npcName, npcList } =
     useNpcStats();
 
   return (
@@ -18,11 +18,7 @@ export function NpcCard() {
       <div>
         <SaveNpcButton handleSave={handleCreate} />
       </div>
-      <NpcDisplay
-        name={submittedNpc.name}
-        maxHp={submittedNpc.hp}
-        currentHp={submittedNpc.hp}
-      />
+      <NpcDisplay npcList={npcList} />
     </div>
   );
 }
