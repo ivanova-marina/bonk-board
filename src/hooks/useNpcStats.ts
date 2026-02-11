@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { getSavedNpc, storeSavedNpc } from '../utils/npcData'
 
 import type { NpcData } from '../utils/npcData';
@@ -23,15 +23,10 @@ export function useNpcStats() {
 
   const handleCreate = () => {
     storeSavedNpc([{ name: npcName, hp: npcHp }]);
-    const updatedList = getSavedNpc();
-    setNpcList(updatedList);
+    setNpcList(getSavedNpc());
     setNpcName('');
     setNpcHp('')
   }
-
-  useEffect(() => {
-    setNpcList(getSavedNpc())
-  }, [])
 
   return {
     handleCreate,
