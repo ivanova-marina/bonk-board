@@ -7,7 +7,7 @@ export function useNpcStats() {
   const [npcList, setNpcList] = useState(getSavedNpc());
 
   const handleCreate = () => {
-    storeSavedNpc(npcName, npcHp);
+    storeSavedNpc([{ name: npcName, hp: npcHp }]);
     const updatedList = getSavedNpc();
     setNpcList(updatedList);
     setNpcName('');

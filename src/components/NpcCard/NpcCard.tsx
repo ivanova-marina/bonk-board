@@ -4,8 +4,7 @@ import { NpcDisplay } from '../NpcDisplay';
 import { useNpcStats } from '../../hooks/useNpcStats';
 
 export function NpcCard() {
-  const { handleCreate, setNpcName, setNpcHp, submittedNpc, npcHp, npcName } =
-    useNpcStats();
+  const { handleCreate, setNpcName, setNpcHp, npcHp, npcName } = useNpcStats();
 
   return (
     <div className='flex flex-col gap-4'>
@@ -18,11 +17,7 @@ export function NpcCard() {
       <div>
         <SaveNpcButton handleSave={handleCreate} />
       </div>
-      <NpcDisplay
-        name={submittedNpc.name}
-        maxHp={submittedNpc.hp}
-        currentHp={submittedNpc.hp}
-      />
+      <NpcDisplay name={npcName} maxHp={npcHp} currentHp={npcHp} />
     </div>
   );
 }

@@ -1,9 +1,13 @@
+interface NpcData {
+  name: string;
+  hp: string
+}
+
 /** Save NPC's data to local storage */
-export function storeSavedNpc(name: string, hp: string) {
-  const npcData = { name: name, hp: hp }
+export function storeSavedNpc(npcData: NpcData[]) {
   const savedNpc = localStorage.getItem('npcData')
   const savedNpcArray = savedNpc ? JSON.parse(savedNpc) : []
-  savedNpcArray.push(npcData)
+  savedNpcArray.push(...npcData)
   const serializedData = JSON.stringify(savedNpcArray);
   localStorage.setItem('npcData', serializedData);
   return serializedData
