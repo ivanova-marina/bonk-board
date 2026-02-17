@@ -1,4 +1,5 @@
 export interface NpcData {
+  id: string;
   name: string;
   hp: string;
 }
