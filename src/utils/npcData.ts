@@ -26,3 +26,11 @@ export function storeSavedNpc(npcData: NpcData[]) {
   localStorage.setItem('npcData', serializedData);
   return serializedData;
 }
+
+/** Delete NPC from local storage by ID */
+export function deleteSavedNpc(id: string) {
+  const savedNpcArray = getSavedNpc();
+  const updatedNpcArray = savedNpcArray.filter(npc => npc.id !== id)
+  const serializedData = JSON.stringify(updatedNpcArray)
+  localStorage.setItem('npcData', serializedData)
+}

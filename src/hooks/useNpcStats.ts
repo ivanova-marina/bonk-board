@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { getSavedNpc, storeSavedNpc } from '../utils/npcData'
+import { deleteSavedNpc, getSavedNpc, storeSavedNpc } from '../utils/npcData'
 
 import type { NpcData } from '../utils/npcData';
 import { generateNpcId } from "../utils/generateNpcId";
@@ -11,6 +11,7 @@ import { generateNpcId } from "../utils/generateNpcId";
  *
  * @returns {Object} An object containing:
  *   - handleCreate: Function to add a new NPC to the list and storage.
+ *   - handleDelete: Function to remove an NPC from the list and storage by ID.
  *   - setNpcName: Setter for the NPC name input.
  *   - setNpcHp: Setter for the NPC HP input.
  *   - npcName: Current value of the NPC name input.
@@ -29,8 +30,14 @@ export function useNpcStats() {
     setNpcHp('')
   }
 
+  const handleDelete = (id: string) => {
+    deleteSavedNpc(id)
+    setNpcList(getSavedNpc())
+  }
+
   return {
     handleCreate,
+    handleDelete,
     setNpcName,
     setNpcHp,
     npcName,
