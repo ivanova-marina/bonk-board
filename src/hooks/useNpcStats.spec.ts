@@ -1,6 +1,7 @@
 import { renderHook, act } from '@testing-library/react';
 import { describe, it, expect, vi, beforeEach } from 'vitest';
 import { useNpcStats } from './useNpcStats';
+import { NPC_STORAGE_KEY } from '../utils/npcData';
 
 // Mock localStorage
 const mockLocalStorage = (() => {
@@ -56,7 +57,7 @@ describe('useNpcStats', () => {
 
     expect(result.current.npcList).toEqual([{ name: 'Orc', hp: '50' }]);
     expect(localStorage.setItem).toHaveBeenCalledWith(
-      'npcData',
+      NPC_STORAGE_KEY,
       JSON.stringify([{ name: 'Orc', hp: '50' }])
     );
   });
@@ -87,7 +88,7 @@ describe('useNpcStats', () => {
       { name: 'Goblin', hp: '30' },
     ]);
     expect(localStorage.setItem).toHaveBeenLastCalledWith(
-      'npcData',
+      NPC_STORAGE_KEY,
       JSON.stringify([
         { name: 'Orc', hp: '50' },
         { name: 'Goblin', hp: '30' },

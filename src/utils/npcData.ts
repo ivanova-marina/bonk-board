@@ -4,9 +4,11 @@ export interface NpcData {
   hp: string;
 }
 
+export const NPC_STORAGE_KEY = 'npcData'
+
 /** Get NPC list from local storage */
 export function getSavedNpc(): NpcData[] {
-  const savedNpc = localStorage.getItem('npcData');
+  const savedNpc = localStorage.getItem(NPC_STORAGE_KEY);
   if (!savedNpc) return [];
 
   try {
@@ -23,7 +25,7 @@ export function storeSavedNpc(npcData: NpcData[]) {
   savedNpcArray.push(...npcData);
 
   const serializedData = JSON.stringify(savedNpcArray);
-  localStorage.setItem('npcData', serializedData);
+  localStorage.setItem(NPC_STORAGE_KEY, serializedData);
   return serializedData;
 }
 
@@ -32,5 +34,5 @@ export function deleteSavedNpc(id: string) {
   const savedNpcArray = getSavedNpc();
   const updatedNpcArray = savedNpcArray.filter(npc => npc.id !== id)
   const serializedData = JSON.stringify(updatedNpcArray)
-  localStorage.setItem('npcData', serializedData)
+  localStorage.setItem(NPC_STORAGE_KEY, serializedData)
 }
