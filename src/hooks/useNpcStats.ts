@@ -10,8 +10,8 @@ import { generateNpcId } from "../utils/generateNpcId";
  * Handles creation and persistent storage of NPC data using localStorage.
  *
  * @returns {Object} An object containing:
- *   - handleCreate: Function to add a new NPC to the list and storage.
- *   - handleDelete: Function to remove an NPC from the list and storage by ID.
+ *   - onCreate: Function to add a new NPC to the list and storage.
+ *   - onDelete: Function to remove an NPC from the list and storage by ID.
  *   - setNpcName: Setter for the NPC name input.
  *   - setNpcHp: Setter for the NPC HP input.
  *   - npcName: Current value of the NPC name input.
@@ -23,21 +23,17 @@ export function useNpcStats() {
   const [npcHp, setNpcHp] = useState('');
   const [npcList, setNpcList] = useState<NpcData[]>(loadNpcs());
 
-  const handleCreate = () => {
-    storeSavedNpc([{ name: npcName, hp: npcHp, id: generateNpcId() }]);
-    setNpcList(loadNpcs());
-    setNpcName('');
-    setNpcHp('')
+  const onCreate = () => {
+    setNpcList(prev => { const newList = [...prev, { id: generateNpcId(), name: npcName, hp: npcHp }]; storeSavedNpc(newList); return newList })
   }
 
-  const handleDelete = (id: string) => {
-    deleteSavedNpc(id)
-    setNpcList(loadNpcs())
+  const onDelete = (id: string) => {
+    setNpcList(prev => { const newList = prev.filter(npc => npc.id !== id); deleteSavedNpc(id); return newList })
   }
 
   return {
-    handleCreate,
-    handleDelete,
+    onCreate,
+    onDelete,
     setNpcName,
     setNpcHp,
     npcName,

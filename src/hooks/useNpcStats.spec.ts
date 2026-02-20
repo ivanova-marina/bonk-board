@@ -53,7 +53,7 @@ describe('useNpcStats', () => {
       result.current.setNpcHp('50');
     });
 
-    act(() => { result.current.handleCreate(); })
+    act(() => { result.current.onCreate(); })
 
     expect(result.current.npcList).toEqual([{ name: 'Orc', hp: '50' }]);
     expect(localStorage.setItem).toHaveBeenCalledWith(
@@ -71,7 +71,7 @@ describe('useNpcStats', () => {
     });
 
     act(() => {
-      result.current.handleCreate();
+      result.current.onCreate();
     });
 
     act(() => {
@@ -80,7 +80,7 @@ describe('useNpcStats', () => {
     });
 
     act(() => {
-      result.current.handleCreate();
+      result.current.onCreate();
     });
 
     expect(result.current.npcList).toEqual([
