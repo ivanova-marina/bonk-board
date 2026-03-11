@@ -6,6 +6,15 @@ export interface NpcData {
 
 export const NPC_STORAGE_KEY = 'npcData'
 
+function isNpcData(obj: unknown): obj is NpcData {
+  return (
+    typeof obj === 'object' &&
+    obj !== null &&
+    typeof (obj as NpcData).id === 'string' &&
+    typeof (obj as NpcData).name === 'string' &&
+    typeof (obj as NpcData).hp === 'string'
+  )
+}
 /** Get NPC list from local storage */
 export function loadNpcs(): NpcData[] {
   const savedNpc = localStorage.getItem(NPC_STORAGE_KEY);
@@ -13,26 +22,12 @@ export function loadNpcs(): NpcData[] {
 
   try {
     const parsed = JSON.parse(savedNpc);
-    return Array.isArray(parsed) ? parsed : [];
+    return Array.isArray(parsed) ? parsed.filter(isNpcData) : [];
   } catch {
     return [];
   }
 }
 
-/** Save NPC list to local storage (appends) */
-export function storeSavedNpc(npcData: NpcData[]) {
-  const savedNpcArray = loadNpcs();
-  savedNpcArray.push(...npcData);
-
-  const serializedData = JSON.stringify(savedNpcArray);
-  localStorage.setItem(NPC_STORAGE_KEY, serializedData);
-  return serializedData;
-}
-
-/** Delete NPC from local storage by ID */
-export function deleteSavedNpc(id: string) {
-  const savedNpcArray = loadNpcs();
-  const updatedNpcArray = savedNpcArray.filter(npc => npc.id !== id)
-  const serializedData = JSON.stringify(updatedNpcArray)
-  localStorage.setItem(NPC_STORAGE_KEY, serializedData)
+export function saveNpcs(npcs: NpcData[]): void {
+  localStorage.setItem(NPC_STORAGE_KEY, JSON.stringify(npcs))
 }

@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { deleteSavedNpc, loadNpcs, storeSavedNpc } from '../utils/npcData'
+import { loadNpcs, saveNpcs } from '../utils/npcData'
 
 import type { NpcData } from '../utils/npcData';
 import { generateNpcId } from "../utils/generateNpcId";
@@ -24,11 +24,11 @@ export function useNpcStats() {
   const [npcList, setNpcList] = useState<NpcData[]>(loadNpcs());
 
   const onCreate = () => {
-    setNpcList(prev => { const newList = [...prev, { id: generateNpcId(), name: npcName, hp: npcHp }]; storeSavedNpc(newList); return newList })
+    setNpcList(prev => { const newList = [...prev, { id: generateNpcId(), name: npcName, hp: npcHp }]; saveNpcs(newList); return newList })
   }
 
   const onDelete = (id: string) => {
-    setNpcList(prev => { const newList = prev.filter(npc => npc.id !== id); deleteSavedNpc(id); return newList })
+    setNpcList(prev => { const newList = prev.filter(npc => npc.id !== id); saveNpcs(newList); return newList })
   }
 
   return {
