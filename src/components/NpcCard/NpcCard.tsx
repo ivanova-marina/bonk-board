@@ -16,9 +16,9 @@ export function NpcCard() {
         onHpChange={(e) => setNpcHp(e.target.value)}
       />
       <div>
-        <SaveNpcButton handleSave={onCreate} />
+        <SaveNpcButton onSave={onCreate} />
       </div>
-      <NpcDisplay npcList={npcList} handleDelete={onDelete} />
+      <NpcDisplay npcList={npcList} onDelete={onDelete} />
     </div>
   );
 }

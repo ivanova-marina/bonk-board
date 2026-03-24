@@ -3,18 +3,18 @@ import { describe, it, expect, vi } from 'vitest';
 import { SaveNpcButton } from './SaveNpcButton';
 
 describe('SaveNpcButton', () => {
-  it('calls handleSave when clicked', () => {
-    const handleSaveMock = vi.fn();
-    render(<SaveNpcButton handleSave={handleSaveMock} />);
+  it('calls onSave when clicked', () => {
+    const onSaveMock = vi.fn();
+    render(<SaveNpcButton onSave={onSaveMock} />);
 
     const button = screen.getByRole('button', { name: /save/i });
     fireEvent.click(button);
 
-    expect(handleSaveMock).toHaveBeenCalledTimes(1);
+    expect(onSaveMock).toHaveBeenCalledTimes(1);
   });
 
   it('renders a button with the correct text', () => {
-    render(<SaveNpcButton handleSave={() => {}} />);
+    render(<SaveNpcButton onSave={() => {}} />);
 
     const button = screen.getByRole('button', { name: /save/i });
 

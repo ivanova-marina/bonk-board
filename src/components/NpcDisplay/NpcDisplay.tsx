@@ -1,23 +1,22 @@
 import type { NpcData } from '../../utils/npcData';
 
-export function NpcDisplay({
-  npcList,
-  handleDelete,
-}: {
+interface NpcDisplayProps {
   npcList: NpcData[];
-  handleDelete: (id: string) => void;
-}) {
+  onDelete: (id: string) => void;
+}
+
+export function NpcDisplay({ npcList, onDelete }: NpcDisplayProps) {
   return (
     <>
-      {npcList.map((npc: NpcData) => (
+      {npcList.map((npc) => (
         <div key={npc.id}>
           <p>Name: {npc.name}</p>
           <p>Max Hp: {npc.hp}</p>
           <p>Current Hp: {npc.hp}</p>
 
           <button
-            role='button'
-            onClick={() => handleDelete(npc.id)}
+            type='button'
+            onClick={() => onDelete(npc.id)}
             className='bg-blue-500 text-white rounded hover:bg-blue-600 transition cursor-pointer w-24 h-10'
           >
             Delete
