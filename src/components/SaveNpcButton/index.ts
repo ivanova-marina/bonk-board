@@ -1,1 +1,1 @@
-export { SaveNpcButton } from './SaveNpcButton'
+export { SaveNpcButton } from './SaveNpcButton';

@@ -5,9 +5,9 @@ interface SaveNpcButtonProps {
 export function SaveNpcButton({ onSave }: SaveNpcButtonProps) {
   return (
     <button
-      role='button'
+      role="button"
       onClick={onSave}
-      className='bg-blue-500 text-white rounded hover:bg-blue-600 transition cursor-pointer w-24 h-10'
+      className="h-10 w-24 cursor-pointer rounded bg-blue-500 text-white transition hover:bg-blue-600"
     >
       Save
     </button>

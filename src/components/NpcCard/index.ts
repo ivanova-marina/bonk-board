@@ -1,1 +1,1 @@
-export { NpcCard } from './NpcCard'
+export { NpcCard } from './NpcCard';

@@ -8,7 +8,7 @@ export function NpcCard() {
     useNpcStats();
 
   return (
-    <div className='flex flex-col gap-4'>
+    <div className="flex flex-col gap-4">
       <NpcForm
         npcName={npcName}
         npcHp={npcHp}

@@ -95,8 +95,16 @@ describe('useNpcStats', () => {
     });
 
     expect(result.current.npcList).toHaveLength(2);
-    expect(result.current.npcList[0]).toMatchObject({ name: 'Orc', hp: '50', id: 'npc-1' });
-    expect(result.current.npcList[1]).toMatchObject({ name: 'Goblin', hp: '30', id: 'npc-2' });
+    expect(result.current.npcList[0]).toMatchObject({
+      name: 'Orc',
+      hp: '50',
+      id: 'npc-1',
+    });
+    expect(result.current.npcList[1]).toMatchObject({
+      name: 'Goblin',
+      hp: '30',
+      id: 'npc-2',
+    });
 
     const calls = mockLocalStorage.setItem.mock.calls;
     const stored = JSON.parse(calls[calls.length - 1][1]);

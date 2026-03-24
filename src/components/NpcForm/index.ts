@@ -1,1 +1,1 @@
-export { NpcForm } from './NpcForm'
+export { NpcForm } from './NpcForm';

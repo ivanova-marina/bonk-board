@@ -15,9 +15,9 @@ export function NpcDisplay({ npcList, onDelete }: NpcDisplayProps) {
           <p>Current Hp: {npc.hp}</p>
 
           <button
-            type='button'
+            type="button"
             onClick={() => onDelete(npc.id)}
-            className='bg-blue-500 text-white rounded hover:bg-blue-600 transition cursor-pointer w-24 h-10'
+            className="h-10 w-24 cursor-pointer rounded bg-blue-500 text-white transition hover:bg-blue-600"
           >
             Delete
           </button>

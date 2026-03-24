@@ -1,1 +1,1 @@
-export { NpcDisplay } from './NpcDisplay'
+export { NpcDisplay } from './NpcDisplay';

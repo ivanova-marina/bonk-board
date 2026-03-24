@@ -14,23 +14,23 @@ export function NpcForm({
   onHpChange,
 }: NpcFormProps) {
   return (
-    <div className='flex flex-col gap-2'>
+    <div className="flex flex-col gap-2">
       <label>
         NPC name:
         <input
-          name='npc-name'
+          name="npc-name"
           value={npcName}
           onChange={onNameChange}
-          className='border rounded-sm ml-2 border-gray-600'
+          className="ml-2 rounded-sm border border-gray-600"
         />
       </label>
       <label>
         NPC hp:
         <input
-          name='npc-hp'
+          name="npc-hp"
           value={npcHp}
           onChange={onHpChange}
-          className='border rounded-sm ml-2 border-gray-600'
+          className="ml-2 rounded-sm border border-gray-600"
         />
       </label>
     </div>

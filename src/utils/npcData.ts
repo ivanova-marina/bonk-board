@@ -4,7 +4,7 @@ export interface NpcData {
   hp: string;
 }
 
-export const NPC_STORAGE_KEY = 'npcData'
+export const NPC_STORAGE_KEY = 'npcData';
 
 function isNpcData(obj: unknown): obj is NpcData {
   return (
@@ -13,7 +13,7 @@ function isNpcData(obj: unknown): obj is NpcData {
     typeof (obj as NpcData).id === 'string' &&
     typeof (obj as NpcData).name === 'string' &&
     typeof (obj as NpcData).hp === 'string'
-  )
+  );
 }
 /** Get NPC list from local storage */
 export function loadNpcs(): NpcData[] {
@@ -29,5 +29,5 @@ export function loadNpcs(): NpcData[] {
 }
 
 export function saveNpcs(npcs: NpcData[]): void {
-  localStorage.setItem(NPC_STORAGE_KEY, JSON.stringify(npcs))
+  localStorage.setItem(NPC_STORAGE_KEY, JSON.stringify(npcs));
 }
