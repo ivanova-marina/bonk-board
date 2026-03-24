@@ -1,12 +1,12 @@
 interface SaveNpcButtonProps {
-  handleSave: () => void;
+  onSave: () => void;
 }
 
-export function SaveNpcButton({ handleSave }: SaveNpcButtonProps) {
+export function SaveNpcButton({ onSave }: SaveNpcButtonProps) {
   return (
     <button
       role='button'
-      onClick={handleSave}
+      onClick={onSave}
       className='bg-blue-500 text-white rounded hover:bg-blue-600 transition cursor-pointer w-24 h-10'
     >
       Save

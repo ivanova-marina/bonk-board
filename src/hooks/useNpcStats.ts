@@ -1,7 +1,9 @@
-import { useState } from "react";
-import { getSavedNpc, storeSavedNpc } from '../utils/npcData'
+import { useEffect, useState } from "react";
+import { loadNpcs, saveNpcs } from '../utils/npcData'
 
 import type { NpcData } from '../utils/npcData';
+import { generateNpcId } from "../utils/generateNpcId";
+
 /**
  * Custom React hook for managing NPC stats.
  *
@@ -9,7 +11,8 @@ import type { NpcData } from '../utils/npcData';
  * Handles creation and persistent storage of NPC data using localStorage.
  *
  * @returns {Object} An object containing:
- *   - handleCreate: Function to add a new NPC to the list and storage.
+ *   - onCreate: Function to add a new NPC to the list and storage.
+ *   - onDelete: Function to remove an NPC from the list and storage by ID.
  *   - setNpcName: Setter for the NPC name input.
  *   - setNpcHp: Setter for the NPC HP input.
  *   - npcName: Current value of the NPC name input.
@@ -19,17 +22,24 @@ import type { NpcData } from '../utils/npcData';
 export function useNpcStats() {
   const [npcName, setNpcName] = useState('');
   const [npcHp, setNpcHp] = useState('');
-  const [npcList, setNpcList] = useState<NpcData[]>(getSavedNpc());
+  const [npcList, setNpcList] = useState<NpcData[]>(() => loadNpcs());
 
-  const handleCreate = () => {
-    storeSavedNpc([{ name: npcName, hp: npcHp }]);
-    setNpcList(getSavedNpc());
+  useEffect(() => saveNpcs(npcList), [npcList])
+
+  const onCreate = () => {
+    const newNpc = { id: generateNpcId(), name: npcName, hp: npcHp };
+    setNpcList(prev => [...prev, newNpc]);
     setNpcName('');
-    setNpcHp('')
+    setNpcHp('');
+  }
+
+  const onDelete = (id: string) => {
+    setNpcList(prev => prev.filter(npc => npc.id !== id))
   }
 
   return {
-    handleCreate,
+    onCreate,
+    onDelete,
     setNpcName,
     setNpcHp,
     npcName,
