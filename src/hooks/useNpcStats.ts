@@ -1,8 +1,9 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { loadNpcs, saveNpcs } from '../utils/npcData'
 
 import type { NpcData } from '../utils/npcData';
 import { generateNpcId } from "../utils/generateNpcId";
+
 /**
  * Custom React hook for managing NPC stats.
  *
@@ -21,14 +22,19 @@ import { generateNpcId } from "../utils/generateNpcId";
 export function useNpcStats() {
   const [npcName, setNpcName] = useState('');
   const [npcHp, setNpcHp] = useState('');
-  const [npcList, setNpcList] = useState<NpcData[]>(loadNpcs());
+  const [npcList, setNpcList] = useState<NpcData[]>(() => loadNpcs());
+
+  useEffect(() => saveNpcs(npcList), [npcList])
 
   const onCreate = () => {
-    setNpcList(prev => { const newList = [...prev, { id: generateNpcId(), name: npcName, hp: npcHp }]; saveNpcs(newList); return newList })
+    const newNpc = { id: generateNpcId(), name: npcName, hp: npcHp };
+    setNpcList(prev => [...prev, newNpc]);
+    setNpcName('');
+    setNpcHp('');
   }
 
   const onDelete = (id: string) => {
-    setNpcList(prev => { const newList = prev.filter(npc => npc.id !== id); saveNpcs(newList); return newList })
+    setNpcList(prev => prev.filter(npc => npc.id !== id))
   }
 
   return {
